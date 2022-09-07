@@ -1,4 +1,4 @@
-# tic-bot
+# tic-bot for Jersey City Badminton Club
 
 Ticket-grabbing bots, in pural. Different scripts are designed for different websites and are separated by branches. In this master branch, it is only an introduction page. Checkout other branches for respective details.
 
