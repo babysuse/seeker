@@ -50,9 +50,9 @@ except ElementNotInteractableException:
 
 driver.find_element(By.CSS_SELECTOR, "button[name='button']").click()
 
-driver.find_element(By.ID, "form_7").send_keys(credentials["name"])
-driver.find_element(By.ID, "form_10").send_keys(credentials["name"])
-driver.find_element(By.ID, "form_13").send_keys(credentials["name"])
-driver.find_element(By.ID, "form_16").send_keys(credentials["name"])
+driver.find_element(By.ID, "form_7").send_keys(credentials["player1"])
+driver.find_element(By.ID, "form_10").send_keys(credentials["player2"])
+driver.find_element(By.ID, "form_13").send_keys(credentials["player3"])
+driver.find_element(By.ID, "form_16").send_keys(credentials["player4"])
 driver.find_element(By.CSS_SELECTOR, "input[value='Submit']").click()
 print(f"Enjoy your day on {slot.split()[0]}! ;)")
