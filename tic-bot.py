@@ -16,10 +16,10 @@ quiet: bool = False
 
 def setup_conn() -> None:
     global chrome
-    url = '...'
+    url: str = '...'
 
-    service = Service(executable_path=ChromeDriverManager().install())
-    chrome = webdriver.Chrome(service=service)
+    service: Service = Service(executable_path=ChromeDriverManager().install())
+    chrome: webdriver.Chrome = webdriver.Chrome(service=service)
     chrome.implicitly_wait(3)
     chrome.get(url)
 
@@ -29,7 +29,7 @@ def login(credentials: dict): pass
 
 def parse_args() -> None:
     """Parse CLI options."""
-    parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
+    parser: argparse.Namespace = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description=
 """
 A CLI tool to help reserve JCBC slot. Make sure to set the credentials.json properly before the executing tic-bot.py. Run it before 9pm and the program will do the rest when the starter pistol is fired.
@@ -55,7 +55,7 @@ def log(*args, **kwargs) -> None:
 def main() -> int:
     global quiet
     args: argparse.Namespace = parse_args()
-    quiet = args.quiet
+    quiet: bool = args.quiet
 
     with open('credentials.json', encoding='utf-8') as credentials_file:
         credentials: dict[str, str] = json.load(credentials_file)
