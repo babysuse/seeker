@@ -1,5 +1,4 @@
 from datetime import datetime
-from secrets import choice
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
 from selenium.webdriver.chrome.service import Service
