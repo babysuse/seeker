@@ -22,7 +22,7 @@ def setup_conn() -> None:
     url: str = f'https://www.supersaas.com/schedule/jcbc?view=week&day={day}&month={month}'
 
     service: Service = Service(executable_path=ChromeDriverManager().install())
-    chrome: webdriver.Chrome = webdriver.Chrome(service=service)
+    chrome = webdriver.Chrome(service=service)
     chrome.implicitly_wait(3)
     chrome.get(url)
 
