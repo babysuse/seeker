@@ -17,12 +17,12 @@ retry: int = 10  # refresh time before giving up
 
 def setup_conn() -> None:
     global chrome
-    month = datetime.now().month
-    day = datetime.now().day
-    url = f'https://www.supersaas.com/schedule/jcbc?view=week&day={day}&month={month}'
+    month: int = datetime.now().month
+    day: int = datetime.now().day
+    url: str = f'https://www.supersaas.com/schedule/jcbc?view=week&day={day}&month={month}'
 
-    service = Service(executable_path=ChromeDriverManager().install())
-    chrome = webdriver.Chrome(service=service)
+    service: Service = Service(executable_path=ChromeDriverManager().install())
+    chrome: webdriver.Chrome = webdriver.Chrome(service=service)
     chrome.implicitly_wait(3)
     chrome.get(url)
 
@@ -37,7 +37,7 @@ def reserve(take_humiliation: bool, credentials: dict) -> None:
             log('Too late! Try next time! >_<', file=sys.stderr)
             exit(1)
         chrome.find_element(By.ID, 'bbox_wait').click()
-        humiliation = True
+        humiliation: bool = True
 
     try:
         chrome.find_element(By.CSS_SELECTOR, 'button[name="button"]').click()
@@ -81,7 +81,7 @@ def get_slot(slot: str, slot_backup: str) -> bool:
     result: bool = False
     while retry > 0 and not result:
         chrome.refresh()
-        result = try_primary(slot, slot_backup)
+        result: str = try_primary(slot, slot_backup)
         retry -= 1
         sleep(random.random())
     return result
@@ -134,7 +134,7 @@ def log(*args, **kwargs) -> None:
 def main() -> int:
     global quiet
     args: argparse.Namespace = parse_args()
-    quiet = args.quiet
+    quiet: bool = args.quiet
 
     with open('credentials.json', encoding='utf-8') as credentials_file:
         credentials: dict[str, str] = json.load(credentials_file)
