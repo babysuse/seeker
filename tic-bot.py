@@ -30,15 +30,17 @@ def setup_conn() -> None:
 
 def reserve(take_humiliation: bool, credentials: dict) -> None:
     """Fill in player's info and reserve the slot."""
+    humiliation: bool = False
     try:
         chrome.find_element(By.ID, "bbox_new").click()
     except ElementNotInteractableException:
         if not take_humiliation:
-            log('Too late! Try next time! Q_Q', file=sys.stderr)
+            log('Too late! Try next time! >_<', file=sys.stderr)
             exit(1)
+        chrome.find_element(By.ID, 'bbox_wait').click()
+        humiliation = True
 
     try:
-        chrome.find_element(By.ID, 'bbox_wait').click()
         chrome.find_element(By.CSS_SELECTOR, 'button[name="button"]').click()
 
         chrome.find_element(By.ID, 'form_7').send_keys(credentials['player1'])
@@ -48,7 +50,11 @@ def reserve(take_humiliation: bool, credentials: dict) -> None:
         chrome.find_element(By.CSS_SELECTOR, "input[value='Submit']").click()
     except:
         log('Not enough credit to create a new booking!', file=sys.stderr)
-    log('Too late! Added to waiting list! Q_Q')
+
+    if humiliation:
+        log('Too late! Added to waiting list! Q_Q')
+    else:
+        log('Easy peasy lemon squeezy!')
 
 
 def try_secondary(slot: str) -> str:
