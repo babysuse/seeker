@@ -23,7 +23,7 @@ def setup_conn() -> None:
 
     service: Service = Service(executable_path=ChromeDriverManager().install())
     chrome = webdriver.Chrome(service=service)
-    chrome.implicitly_wait(3)
+    chrome.implicitly_wait(1)
     chrome.get(url)
 
 
