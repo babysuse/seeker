@@ -11,7 +11,7 @@ import random
 import sys
 
 
-chrome: webdriver.Chrome = None
+chrome: webdriver.Chrome
 quiet: bool = False
 retry: int = 10  # refresh time before giving up
 
@@ -74,14 +74,14 @@ def try_primary(slot: str, backup_slot: str) -> str:
     return slot
 
 
-def get_slot(slot: str, slot_backup: str) -> bool:
+def get_slot(slot: str, slot_backup: str) -> str:
     """Refresh the page with random back off in case being banned for requesting too aggressive."""
     global retry
     log("Party's up")
-    result: bool = False
+    result: str = ''
     while retry > 0 and not result:
         chrome.refresh()
-        result: str = try_primary(slot, slot_backup)
+        result = try_primary(slot, slot_backup)
         retry -= 1
         sleep(random.random())
     return result
@@ -94,7 +94,7 @@ def login(credentials: dict):
     chrome.find_element(By.CSS_SELECTOR, 'button[name="button"]').click()
 
 
-def parse_args() -> None:
+def parse_args() -> argparse.Namespace:
     """Parse CLI options."""
     parser = argparse.ArgumentParser(formatter_class=argparse.RawDescriptionHelpFormatter,
                                      description=
@@ -134,7 +134,7 @@ def log(*args, **kwargs) -> None:
 def main() -> int:
     global quiet
     args: argparse.Namespace = parse_args()
-    quiet: bool = args.quiet
+    quiet = args.quiet
 
     with open('credentials.json', encoding='utf-8') as credentials_file:
         credentials: dict[str, str] = json.load(credentials_file)
