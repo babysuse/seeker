@@ -112,7 +112,7 @@ Example usage:
                         choices=['Friday 6pm', 'Friday 7:30pm', 'Friday 9pm', 'Friday 10:30pm', 'Saturday 11am', 'Saturday 12:30pm', 'Saturday 2pm', 'Saturday 3:30pm', 'Saturday 5pm', 'Saturday 6:30pm', 'Saturday 8pm'],
                         help='Slot to be reserved. Valid options are "Friday 6pm", "Friday 7:30pm", "Friday 9pm", "Friday 10:30pm", "Saturday 11am", "Saturday 12:30pm", "Saturday 2pm", "Saturday 3:30pm", "Saturday 5pm", "Saturday 6:30pm", "Saturday 8pm". Default to "Saturday 6:30pm".')
     parser.add_argument('--backup-slot',
-                        default='Saturday 6:30pm',
+                        default='Sunday 6:30pm',
                         choices=['Friday 6pm', 'Friday 7:30pm', 'Friday 9pm', 'Friday 10:30pm', 'Sunday 11am', 'Sunday 12:30pm', 'Sunday 2pm', 'Sunday 3:30pm', 'Sunday 5pm', 'Sunday 6:30pm'],
                         help='Backup slot to be reserved in case it closes on Saturday. Slots on Sunday are "Sunday 11am", "Sunday 12:30pm", "Sunday 2pm", "Sunday 3:30pm", "Sunday 5pm", "Sunday 6:30pm".')
     parser.add_argument('--quiet',
