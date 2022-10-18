@@ -2,6 +2,7 @@ from datetime import datetime
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
 from time import sleep
 from webdriver_manager.chrome import ChromeDriverManager
 import argparse
@@ -25,11 +26,12 @@ def setup_conn() -> None:
     chrome.get(url)
 
 
-def reserve(take_humiliation: bool, credentials: dict) -> None:
+def reserve(take_humiliation: bool, credentials: dict, quantity: str) -> None:
     """Fill in player's info and reserve the slot."""
     humiliation: bool = False
     try:
-        chrome.find_element(By.ID, "bbox_new").click()
+        Select(chrome.find_element(By.ID, 'booking_quantity')).select_by_value(quantity)
+        chrome.find_element(By.ID, 'bbox_new')
     except ElementNotInteractableException:
         if not take_humiliation:
             log('Too late! Try next time! >_<', file=sys.stderr)
@@ -113,6 +115,10 @@ Example usage:
                         default='Sunday 6:30pm',
                         choices=['Friday 6pm', 'Friday 7:30pm', 'Friday 9pm', 'Friday 10:30pm', 'Sunday 11am', 'Sunday 12:30pm', 'Sunday 2pm', 'Sunday 3:30pm', 'Sunday 5pm', 'Sunday 6:30pm'],
                         help='Backup slot to be reserved in case it closes on Saturday. Slots on Sunday are "Sunday 11am", "Sunday 12:30pm", "Sunday 2pm", "Sunday 3:30pm", "Sunday 5pm", "Sunday 6:30pm".')
+    parser.add_argument('--quantity',
+                        default='1',
+                        choices=['1', '2'],
+                        help='The number of the court to reserve. If provided, make sure the credits are enough.')
     parser.add_argument('--quiet',
                         action='store_true',
                         default=False,
@@ -150,7 +156,7 @@ def main() -> int:
         log('The server is possibly down!', file=sys.stderr)
         exit(1)
 
-    reserve(args.queue, credentials)
+    reserve(args.queue, credentials, args.quantity)
     log(f'Enjoy your day on {slot.split()[0]}! ;)')
     return 0
 
