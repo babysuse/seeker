@@ -1,7 +1,6 @@
 from datetime import datetime
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException, ElementNotInteractableException
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from time import sleep
 from webdriver_manager.chrome import ChromeDriverManager
@@ -21,8 +20,7 @@ def setup_conn() -> None:
     day: int = datetime.now().day
     url: str = f'https://www.supersaas.com/schedule/jcbc?view=week&day={day}&month={month}'
 
-    service: Service = Service(executable_path=ChromeDriverManager().install())
-    chrome = webdriver.Chrome(service=service)
+    chrome = webdriver.Chrome(ChromeDriverManager().install())
     chrome.implicitly_wait(1)
     chrome.get(url)
 
