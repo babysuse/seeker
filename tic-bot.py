@@ -31,7 +31,7 @@ def reserve(take_humiliation: bool, credentials: dict, quantity: str) -> None:
     humiliation: bool = False
     try:
         Select(chrome.find_element(By.ID, 'booking_quantity')).select_by_value(quantity)
-        chrome.find_element(By.ID, 'bbox_new')
+        chrome.find_element(By.ID, 'bbox_new').click()
     except ElementNotInteractableException:
         if not take_humiliation:
             log('Too late! Try next time! >_<', file=sys.stderr)
